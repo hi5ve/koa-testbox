@@ -1,0 +1,25 @@
+{
+  "name": "koa-testbox",
+  "version": "0.0.1",
+  "description": "Koa api testbox server ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hi5ve/koa-testbox.git"
+  },
+  "keywords": [
+    "koa",
+    "api",
+    "middleware",
+    "testbox"
+  ],
+  "author": "Vladimir Pasechnik <vladimir.pasechnik@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hi5ve/koa-testbox/issues"
+  },
+  "homepage": "https://github.com/hi5ve/koa-testbox#readme"
+}
