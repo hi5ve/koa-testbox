@@ -1,10 +1,86 @@
 {
-  "name": "koa-testbox",
+  "name": "@hi5ve/koa-testbox",
   "version": "0.0.1",
   "description": "Koa api testbox server ",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf lib",
+    "deploy": "better-npm-run deploy",
+    "deploy:prod": "better-npm-run deploy",
+    "deploy:dev": "better-npm-run deploy:dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "better-npm-run compile",
+    "watch": "better-npm-run watch",
+    "start": "better-npm-run start",
+    "start:dev": "better-npm-run start:dev",
+    "start:prod": "better-npm-run start:prod",
+    "dev": "better-npm-run start:dev",
+    "webpack:dev": "concurrently --kill-others 'better-npm-run watch' 'better-npm-run start:dist'",
+    "old-deploy:watch": "babel src --out-dir dist --watch",
+    "old-test:test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-register --require babel-polyfill",
+    "old-cover": "better-npm-run cover",
+    "old-test": "better-npm-run test",
+    "old-test:dev": "npm run test -- --watch",
+    "old-lint": "./node_modules/.bin/eslint src/**/*.js"
+  },
+  "betterScripts": {
+    "compile": {
+      "command": "webpack --config ./build/webpack.config.js",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "watch": {
+      "command": "webpack --watch --config ./build/webpack.config.js",
+      "env": {}
+    },
+    "deploy": {
+      "command": "npm run clean && better-npm-run compile",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:dev": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:prod": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "start": {
+      "command": "node lib/index.js",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "start:dist": {
+      "command": "nodemon lib/index.js",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "start:dev": {
+      "command": "nodemon src/index.js",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "start:prod": {
+      "command": "node lib/index.js",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -21,5 +97,23 @@
   "bugs": {
     "url": "https://github.com/hi5ve/koa-testbox/issues"
   },
-  "homepage": "https://github.com/hi5ve/koa-testbox#readme"
+  "homepage": "https://github.com/hi5ve/koa-testbox#readme",
+  "dependencies": {
+    "better-npm-run": "^0.1.0",
+    "koa": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "concurrently": "^3.5.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "nodemon": "^1.12.1",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.7.1"
+  }
 }
