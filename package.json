@@ -1,6 +1,6 @@
 {
-  "name": "@hi5ve/koa-testbox",
-  "version": "0.0.1",
+  "name": "koa-testbox",
+  "version": "0.0.2",
   "description": "Koa api testbox server ",
   "main": "lib/index.js",
   "scripts": {
