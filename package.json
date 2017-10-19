@@ -1,31 +1,43 @@
 {
   "name": "koa-testbox",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Koa api testbox server ",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf dist",
     "deploy": "better-npm-run deploy",
     "deploy:prod": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint src/**/*.js",
+    "lint:fix": "./node_modules/.bin/eslint --fix src/**/*.js",
     "compile": "better-npm-run compile",
+    "compile:babel": "better-npm-run compile:babel",
     "watch": "better-npm-run watch",
     "start": "better-npm-run start",
     "start:dev": "better-npm-run start:dev",
     "start:prod": "better-npm-run start:prod",
     "dev": "better-npm-run start:dev",
+    "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
     "webpack:dev": "concurrently --kill-others 'better-npm-run watch' 'better-npm-run start:dist'",
     "old-deploy:watch": "babel src --out-dir dist --watch",
     "old-test:test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-register --require babel-polyfill",
     "old-cover": "better-npm-run cover",
     "old-test": "better-npm-run test",
     "old-test:dev": "npm run test -- --watch",
-    "old-lint": "./node_modules/.bin/eslint src/**/*.js"
+    "b-watch": "babel -w src/ -d dist/",
+    "b-build": "babel src/ -d dist/",
+    "b-test": "echo \"Error: no test specified\" && exit 1"
   },
   "betterScripts": {
     "compile": {
       "command": "webpack --config ./build/webpack.config.js",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "compile:babel": {
+      "command": "babel src --out-dir dist",
       "env": {
         "DEBUG": "app:*"
       }
@@ -55,27 +67,27 @@
       }
     },
     "start": {
-      "command": "node lib/index.js",
+      "command": "node dist/index.js",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "start:dist": {
-      "command": "nodemon lib/index.js",
+      "command": "nodemon dist/index.js",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "start:dev": {
-      "command": "nodemon src/index.js",
+      "command": "babel-node src/index.js",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
       }
     },
     "start:prod": {
-      "command": "node lib/index.js",
+      "command": "node dist/index.js",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
@@ -104,13 +116,20 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "concurrently": "^3.5.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-chai-friendly": "^0.4.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.4.0",
     "nodemon": "^1.12.1",
     "rimraf": "^2.6.2",

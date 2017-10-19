@@ -1,1 +1,10 @@
-console.log('alert("Hello world 191");')
+import Koa from 'koa'
+
+const app = new Koa()
+
+// response
+app.use((ctx) => {
+  ctx.body = 'Hello Koa'
+})
+
+app.listen(3000)
